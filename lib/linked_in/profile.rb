@@ -6,12 +6,18 @@ module LinkedIn
     PROFILE_FIELDS = %w[id first_name last_name headline industry
                         current_status current_status_timestamp summary
                         specialties proposal_comments associations honors
-                        interests picture_url distance num_recommenders]
+                        interests picture_url distance num_recommenders
+                        public_profile_url current_share num_connections
+                        num_connections_capped]
 
     PROFILE_FIELDS.each do |f|
       define_method(f.to_sym) do
         @doc.xpath("./person/#{f.gsub(/_/,'-')}").text
       end
+    end
+
+    def name
+      "#{first_name} #{last_name}"
     end
 
     def location
